@@ -1,0 +1,223 @@
+/* ---- tokens ------------------------------------------------------------ */
+:root {
+  --ink:        #16182B;
+  --ink-soft:   #5A5F72;
+  --paper:      #EDEFEE;
+  --surface:    #FFFFFF;
+  --rule:       #D3D7D5;
+
+  --verde:      #0F7A66;   /* correct */
+  --ambar:      #B57614;   /* right word, wrong accents */
+  --rojo:       #A83A2E;   /* incorrect */
+
+  --display: "Bricolage Grotesque", Georgia, serif;
+  --body:    "IBM Plex Sans", system-ui, sans-serif;
+  --mono:    "IBM Plex Mono", ui-monospace, monospace;
+
+  --gap: 1.5rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.shell { max-width: 46rem; margin: 0 auto; padding: 0 1.25rem 4rem; }
+
+/* ---- masthead ---------------------------------------------------------- */
+.masthead {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1rem; flex-wrap: wrap;
+  padding: 1.5rem 0 1rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 2rem;
+}
+.wordmark {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  color: var(--ink);
+}
+.wordmark span { color: var(--verde); }
+.masthead nav { display: flex; gap: 1.25rem; align-items: baseline; }
+.masthead nav a, .linkbtn {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-decoration: none;
+  background: none; border: 0; padding: 0; cursor: pointer;
+}
+.masthead nav a:hover, .linkbtn:hover { color: var(--verde); }
+
+/* ---- typography -------------------------------------------------------- */
+h1 {
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin: 0 0 0.4rem;
+}
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 0.6rem;
+}
+
+/* ---- cards ------------------------------------------------------------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: var(--gap);
+}
+.card + .card { margin-top: 1rem; }
+
+.prompt {
+  font-family: var(--display);
+  font-size: 1.5rem;
+  line-height: 1.3;
+  margin: 0.25rem 0 1.25rem;
+}
+.hint {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  border-left: 2px solid var(--rule);
+  padding-left: 0.75rem;
+  margin: 0 0 1.25rem;
+}
+
+/* ---- answer field ------------------------------------------------------ */
+label { display: block; font-family: var(--mono); font-size: 0.75rem;
+        letter-spacing: 0.08em; text-transform: uppercase;
+        color: var(--ink-soft); margin-bottom: 0.4rem; }
+
+input[type="text"], input[type="email"], input[type="password"] {
+  width: 100%;
+  font-family: var(--body);
+  font-size: 1.05rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: var(--surface);
+  color: var(--ink);
+}
+input:focus-visible, button:focus-visible, .key:focus-visible {
+  outline: 2px solid var(--verde);
+  outline-offset: 2px;
+}
+
+/* ---- signature: the accent keyboard ------------------------------------ */
+/* Typing Spanish on a US keyboard is the actual daily friction for these
+   students, so the accent row is the one piece of UI given real weight. */
+.accentbar {
+  display: flex; flex-wrap: wrap; gap: 0.35rem;
+  margin: 0.6rem 0 1.25rem;
+}
+.key {
+  font-family: var(--mono);
+  font-size: 1rem;
+  min-width: 2.25rem;
+  padding: 0.35rem 0;
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-bottom-width: 3px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 90ms ease, border-bottom-width 90ms ease;
+}
+.key:active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+}
+
+/* ---- buttons ----------------------------------------------------------- */
+.btn {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.7rem 1.4rem;
+  background: var(--ink);
+  color: var(--paper);
+  border: 0;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.btn:hover { background: var(--verde); }
+.btn-quiet {
+  background: none; color: var(--ink);
+  border: 1px solid var(--rule);
+}
+.btn-quiet:hover { background: var(--surface); color: var(--verde); }
+.actions { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; }
+
+/* ---- verdict ----------------------------------------------------------- */
+.verdict { border-left: 3px solid var(--rule); padding-left: 1rem; margin-bottom: 1.25rem; }
+.verdict h2 { font-family: var(--display); font-size: 1.15rem; margin: 0 0 0.3rem; }
+.verdict p  { margin: 0.2rem 0; font-size: 0.95rem; }
+.verdict .answer { font-family: var(--mono); font-size: 0.95rem; }
+.verdict.is-correct { border-left-color: var(--verde); }
+.verdict.is-correct h2 { color: var(--verde); }
+.verdict.is-accent  { border-left-color: var(--ambar); }
+.verdict.is-accent h2 { color: var(--ambar); }
+.verdict.is-wrong   { border-left-color: var(--rojo); }
+.verdict.is-wrong h2 { color: var(--rojo); }
+
+/* ---- dashboard stats --------------------------------------------------- */
+.stats { display: flex; gap: 2.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.stat .n {
+  font-family: var(--display);
+  font-size: 2.6rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  display: block;
+}
+.stat .k {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+th {
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-soft);
+  text-align: left; font-weight: 400;
+  padding-bottom: 0.5rem; border-bottom: 1px solid var(--rule);
+}
+td { padding: 0.6rem 0; border-bottom: 1px solid var(--rule); }
+td:last-child, th:last-child { text-align: right; font-family: var(--mono); }
+
+.meter { height: 3px; background: var(--rule); border-radius: 2px; overflow: hidden; margin-top: 0.35rem; }
+.meter i { display: block; height: 100%; background: var(--verde); }
+
+.empty { color: var(--ink-soft); font-size: 0.95rem; }
+
+/* ---- login ------------------------------------------------------------- */
+.login-wrap { max-width: 24rem; margin: 5rem auto; padding: 0 1.25rem; }
+.field + .field { margin-top: 1rem; }
+.notice { font-size: 0.9rem; padding: 0.7rem 0.9rem; border-radius: 3px; margin-bottom: 1.25rem; }
+.notice.err  { background: #F7E9E7; color: var(--rojo); }
+.notice.info { background: #E6F0EE; color: var(--verde); }
+.seed { font-family: var(--mono); font-size: 0.75rem; color: var(--ink-soft); margin-top: 1.5rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Sign in')}"></head>
+<body>
+<main class="login-wrap">
+    <p class="eyebrow">Spanish tutoring</p>
+    <h1>Aula</h1>
+
+    <div th:if="${param.error}" class="notice err">
+        That email and password did not match. Try again.
+    </div>
+    <div th:if="${param.loggedOut}" class="notice info">
+        You are signed out.
+    </div>
+
+    <form th:action="@{/login}" method="post" class="card" style="margin-top:1.5rem">
+        <div class="field">
+            <label for="username">Email</label>
+            <input type="email" id="username" name="username" required autofocus autocomplete="username">
+        </div>
+        <div class="field">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required autocomplete="current-password">
+        </div>
+        <div class="field">
+            <button type="submit" class="btn">Sign in</button>
+        </div>
+    </form>
+
+    <p class="seed">dev accounts — student@example.com / changeme</p>
+</main>
+</body>
+</html>

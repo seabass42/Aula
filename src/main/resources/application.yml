@@ -1,0 +1,29 @@
+spring:
+  profiles:
+    active: dev
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/tutorportal
+    username: tutorportal
+    password: localdev
+
+  jpa:
+    hibernate:
+      # Flyway owns the schema. 'validate' makes Hibernate check that the
+      # entities match the migrated tables and fail loudly if they drift.
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+  thymeleaf:
+    cache: false
+
+logging:
+  level:
+    org.hibernate.SQL: debug

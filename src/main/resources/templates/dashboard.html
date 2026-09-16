@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Progress')}"></head>
+<body>
+<div class="shell">
+    <header th:replace="~{fragments :: masthead}"></header>
+
+    <p class="eyebrow">Your progress</p>
+    <h1 th:text="'Hola, ' + ${displayName}">Hola</h1>
+
+    <div class="stats" style="margin-top:1.5rem">
+        <div class="stat">
+            <span class="n" th:text="${totalAttempts}">0</span>
+            <span class="k">Attempts</span>
+        </div>
+        <div class="stat">
+            <span class="n" th:text="${correctAttempts}">0</span>
+            <span class="k">Correct</span>
+        </div>
+        <div class="stat">
+            <span class="n" th:text="${accuracy} + '%'">0%</span>
+            <span class="k">Accuracy</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <p class="eyebrow" style="margin-bottom:1rem">By topic</p>
+
+        <p th:if="${topics.isEmpty()}" class="empty">
+            Nothing here yet. Answer a few problems and this fills in.
+        </p>
+
+        <table th:unless="${topics.isEmpty()}">
+            <thead>
+            <tr><th>Topic</th><th>Attempts</th><th>Accuracy</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="t : ${topics}">
+                <td>
+                    <span th:text="${t.topic()}">Topic</span>
+                    <span class="meter"><i th:style="'width:' + ${t.accuracyPercent()} + '%'"></i></span>
+                </td>
+                <td th:text="${t.attempts()}">0</td>
+                <td th:text="${t.accuracyPercent()} + '%'">0%</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p style="margin-top:1.5rem">
+        <a class="btn" th:href="@{/practice}" style="text-decoration:none">Start practicing</a>
+    </p>
+</div>
+</body>
+</html>

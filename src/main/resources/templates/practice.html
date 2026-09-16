@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Practice')}"></head>
+<body>
+<div class="shell">
+    <header th:replace="~{fragments :: masthead}"></header>
+
+    <!-- Verdict block only renders after a submission. -->
+    <div th:if="${verdict != null}"
+         class="verdict"
+         th:classappend="${verdict == 'CORRECT'} ? 'is-correct'
+                       : (${verdict == 'MISSING_ACCENTS'} ? 'is-accent' : 'is-wrong')">
+
+        <div th:switch="${verdict}">
+            <h2 th:case="'CORRECT'">Correcto</h2>
+            <h2 th:case="'MISSING_ACCENTS'">Casi — check your accents</h2>
+            <h2 th:case="*">No es correcto</h2>
+        </div>
+
+        <p th:if="${verdict == 'MISSING_ACCENTS'}">
+            Every letter is right, but the accent marks are not. In Spanish they change
+            meaning, so they count.
+        </p>
+        <p class="answer">You wrote: <span th:text="${submitted}"></span></p>
+        <p class="answer" th:unless="${verdict == 'CORRECT'}">
+            Expected: <span th:text="${expected}"></span>
+        </p>
+
+        <p class="actions" style="margin-top:1rem">
+            <a class="btn" th:href="@{/practice}" style="text-decoration:none">Next problem</a>
+            <a class="btn btn-quiet" th:href="@{/}" style="text-decoration:none">See progress</a>
+        </p>
+    </div>
+
+    <!-- Question block hides once answered, so the student cannot resubmit. -->
+    <div th:if="${verdict == null}">
+        <p class="eyebrow">
+            <span th:text="${problem.type.label}">Type</span> ·
+            <span th:text="${problem.topic}">Topic</span>
+        </p>
+
+        <p class="prompt" th:text="${problem.prompt}">Prompt goes here.</p>
+
+        <p class="hint" th:if="${problem.hint != null}" th:text="${problem.hint}">Hint</p>
+
+        <form th:action="@{'/practice/' + ${problem.id}}" method="post" class="card">
+            <label for="answer">Your answer</label>
+            <input type="text" id="answer" name="answer" required autofocus
+                   autocomplete="off" autocapitalize="off" spellcheck="false">
+
+            <!-- Signature element: typing Spanish on a US keyboard is the real
+                 daily friction, so the accent row gets first-class treatment. -->
+            <div class="accentbar" aria-label="Insert Spanish characters">
+                <button type="button" class="key" data-char="á">á</button>
+                <button type="button" class="key" data-char="é">é</button>
+                <button type="button" class="key" data-char="í">í</button>
+                <button type="button" class="key" data-char="ó">ó</button>
+                <button type="button" class="key" data-char="ú">ú</button>
+                <button type="button" class="key" data-char="ñ">ñ</button>
+                <button type="button" class="key" data-char="ü">ü</button>
+                <button type="button" class="key" data-char="¿">¿</button>
+                <button type="button" class="key" data-char="¡">¡</button>
+            </div>
+
+            <div class="actions">
+                <button type="submit" class="btn">Check answer</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script th:src="@{/js/accents.js}"></script>
+</body>
+</html>
