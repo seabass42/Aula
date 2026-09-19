@@ -1,0 +1,34 @@
+{
+  "family": "aula",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "executionRoleArn": "arn:aws:iam::237265225736:role/aulaTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "aula",
+      "image": "237265225736.dkr.ecr.us-east-1.amazonaws.com/aula:v1",
+      "portMappings": [
+        { "containerPort": 8080, "protocol": "tcp" }
+      ],
+      "environment": [
+        { "name": "SPRING_PROFILES_ACTIVE", "value": "dev" },
+        { "name": "SPRING_DATASOURCE_URL", "value": "jdbc:postgresql://aula-db.ccnq04cwefhu.us-east-1.rds.amazonaws.com:5432/tutorportal" },
+        { "name": "SPRING_DATASOURCE_USERNAME", "value": "aula" }
+      ],
+      "secrets": [
+        { "name": "SPRING_DATASOURCE_PASSWORD", "valueFrom": "arn:aws:secretsmanager:us-east-1:237265225736:secret:aula/db-password-U4pIDK" }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/aula",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs",
+          "awslogs-create-group": "true"
+        }
+      }
+    }
+  ]
+}

@@ -8,7 +8,7 @@ import java.util.Locale;
 /**
  * Compares a submitted answer to the expected one.
  *
- * Spanish-specific detail: an answer that is right except for missing accents
+ * An answer that is right except for missing accents
  * is not the same kind of wrong as an answer that is just wrong, so it gets its
  * own verdict and its own feedback.
  */
