@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <!-- Shared <head>. Pages pull this in with th:replace. -->
 <head th:fragment="head(title)">
@@ -19,6 +19,7 @@
     <nav>
         <a th:href="@{/}">Progress</a>
         <a th:href="@{/practice}">Practice</a>
+        <a th:href="@{/tutor/problems}" sec:authorize="hasRole('TUTOR')">Problems</a>
         <form th:action="@{/logout}" method="post" style="display:inline">
             <button type="submit" class="linkbtn">Sign out</button>
         </form>

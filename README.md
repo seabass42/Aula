@@ -42,7 +42,10 @@ public.**
      ├── AnswerGrader.grade(expected, submitted)
      │      └─ CORRECT | MISSING_ACCENTS | INCORRECT
      │
-     └── AttemptRepository.save(...)  → feeds the dashboard
+     ├── AttemptRepository.save(...)  → feeds the dashboard
+     │
+     └── TutorProblemController (/tutor/problems, ROLE_TUTOR only)
+            └─ create, edit, and delete problems without touching SQL
 ```
 
 `ddl-auto: validate` means Hibernate never creates or alters tables. Flyway owns the
@@ -57,10 +60,3 @@ refuse to start. Add a new file:
 ```
 src/main/resources/db/migration/V2__add_help_requests.sql
 ```
-
-## Not built yet
-
-- Tutor UI for creating and editing problems (currently seeded only)
-- Help requests: student submits a question or an essay, tutor replies
-- Student self-signup (accounts are seeded by hand for now)
-- Tests

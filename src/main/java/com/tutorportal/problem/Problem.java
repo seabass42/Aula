@@ -46,4 +46,10 @@ public class Problem {
     public ProblemType getType() { return type; }
     public String getTopic() { return topic; }
     public String getHint() { return hint; }
+
+    public void setPrompt(String prompt) { this.prompt = prompt; }
+    public void setCorrectAnswer(String correctAnswer) { this.correctAnswer = correctAnswer; }
+    public void setType(ProblemType type) { this.type = type; }
+    public void setTopic(String topic) { this.topic = topic; }
+    public void setHint(String hint) { this.hint = hint; }
 }

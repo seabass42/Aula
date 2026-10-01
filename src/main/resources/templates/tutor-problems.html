@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Problems')}"></head>
+<body>
+<div class="shell">
+    <header th:replace="~{fragments :: masthead}"></header>
+
+    <p class="eyebrow">Problem bank</p>
+    <h1>Problems</h1>
+
+    <div th:if="${error}" class="notice err" th:text="${error}">Error</div>
+
+    <div class="card" style="margin-top:1.5rem">
+        <p class="eyebrow" style="margin-bottom:1rem"
+           th:text="${editing != null} ? 'Edit problem' : 'Add a problem'">Add a problem</p>
+
+        <form th:action="${editing != null} ? @{'/tutor/problems/' + ${editing.id}} : @{/tutor/problems}"
+              method="post">
+            <div class="field">
+                <label for="prompt">Prompt</label>
+                <input type="text" id="prompt" name="prompt" required maxlength="500"
+                       th:value="${editing != null} ? ${editing.prompt} : ''">
+            </div>
+            <div class="field">
+                <label for="correctAnswer">Correct answer</label>
+                <input type="text" id="correctAnswer" name="correctAnswer" required maxlength="300"
+                       th:value="${editing != null} ? ${editing.correctAnswer} : ''">
+            </div>
+            <div class="field">
+                <label for="type">Type</label>
+                <select id="type" name="type" required>
+                    <option th:each="t : ${types}"
+                            th:value="${t}"
+                            th:text="${t.label}"
+                            th:selected="${editing != null and editing.type == t}">Type</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="topic">Topic</label>
+                <input type="text" id="topic" name="topic" required maxlength="255"
+                       th:value="${editing != null} ? ${editing.topic} : ''">
+            </div>
+            <div class="field">
+                <label for="hint">Hint (optional)</label>
+                <input type="text" id="hint" name="hint" maxlength="500"
+                       th:value="${editing != null} ? ${editing.hint} : ''">
+            </div>
+            <div class="field actions">
+                <button type="submit" class="btn" th:text="${editing != null} ? 'Save changes' : 'Add problem'">Add problem</button>
+                <a th:if="${editing != null}" class="btn btn-quiet" th:href="@{/tutor/problems}" style="text-decoration:none">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <p class="eyebrow" style="margin-top:2.5rem">All problems</p>
+
+    <p th:if="${problems.isEmpty()}" class="empty">No problems yet — add one above.</p>
+
+    <table th:unless="${problems.isEmpty()}">
+        <thead>
+        <tr><th>Topic</th><th>Type</th><th>Prompt</th><th></th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="p : ${problems}">
+            <td th:text="${p.topic}">Topic</td>
+            <td th:text="${p.type.label}">Type</td>
+            <td th:text="${p.prompt}">Prompt</td>
+            <td>
+                <span class="actions">
+                    <a class="linkbtn" th:href="@{/tutor/problems(edit=${p.id})}">Edit</a>
+                    <form th:action="@{'/tutor/problems/' + ${p.id} + '/delete'}" method="post" style="display:inline">
+                        <button type="submit" class="linkbtn">Delete</button>
+                    </form>
+                </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
