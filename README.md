@@ -44,8 +44,11 @@ public.**
      │
      ├── AttemptRepository.save(...)  → feeds the dashboard
      │
-     └── TutorProblemController (/tutor/problems, ROLE_TUTOR only)
-            └─ create, edit, and delete problems without touching SQL
+     ├── TutorProblemController (/tutor/problems, ROLE_TUTOR only)
+     │      └─ create, edit, and delete problems without touching SQL
+     │
+     └── HelpController (/help) + TutorHelpController (/tutor/help)
+            └─ student asks a question, tutor replies -- help_requests table
 ```
 
 `ddl-auto: validate` means Hibernate never creates or alters tables. Flyway owns the
@@ -58,5 +61,5 @@ Never edit a migration that has already run — Flyway records its checksum and 
 refuse to start. Add a new file:
 
 ```
-src/main/resources/db/migration/V2__add_help_requests.sql
+src/main/resources/db/migration/V3__add_something.sql
 ```

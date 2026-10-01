@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Help requests')}"></head>
+<body>
+<div class="shell">
+    <header th:replace="~{fragments :: masthead}"></header>
+
+    <p class="eyebrow">Student questions</p>
+    <h1>Help requests</h1>
+
+    <p class="eyebrow" style="margin-top:2rem">Open</p>
+
+    <p th:if="${open.isEmpty()}" class="empty">Nothing waiting on you right now.</p>
+
+    <div th:each="r : ${open}" class="card">
+        <p class="eyebrow" th:text="${r.studentName}">Student</p>
+        <p th:text="${r.message}">Question</p>
+
+        <form th:action="@{'/tutor/help/' + ${r.id} + '/reply'}" method="post" style="margin-top:1rem">
+            <label th:for="'reply-' + ${r.id}">Your reply</label>
+            <textarea th:id="'reply-' + ${r.id}" name="reply" rows="3" required></textarea>
+            <div class="actions" style="margin-top:0.75rem">
+                <button type="submit" class="btn">Send reply</button>
+            </div>
+        </form>
+    </div>
+
+    <p class="eyebrow" style="margin-top:2.5rem">Answered</p>
+
+    <p th:if="${answered.isEmpty()}" class="empty">No answered questions yet.</p>
+
+    <div th:each="r : ${answered}" class="card">
+        <p class="eyebrow" th:text="${r.studentName}">Student</p>
+        <p th:text="${r.message}">Question</p>
+        <div class="verdict is-correct" style="margin-top:1rem">
+            <h2>Your reply</h2>
+            <p th:text="${r.reply}">Reply</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

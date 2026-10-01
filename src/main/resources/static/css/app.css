@@ -104,7 +104,7 @@ label { display: block; font-family: var(--mono); font-size: 0.75rem;
         letter-spacing: 0.08em; text-transform: uppercase;
         color: var(--ink-soft); margin-bottom: 0.4rem; }
 
-input[type="text"], input[type="email"], input[type="password"], select {
+input[type="text"], input[type="email"], input[type="password"], select, textarea {
   width: 100%;
   font-family: var(--body);
   font-size: 1.05rem;
@@ -114,7 +114,8 @@ input[type="text"], input[type="email"], input[type="password"], select {
   background: var(--surface);
   color: var(--ink);
 }
-input:focus-visible, button:focus-visible, select:focus-visible, .key:focus-visible {
+textarea { resize: vertical; }
+input:focus-visible, button:focus-visible, select:focus-visible, textarea:focus-visible, .key:focus-visible {
   outline: 2px solid var(--verde);
   outline-offset: 2px;
 }
@@ -209,6 +210,10 @@ td:last-child, th:last-child { text-align: right; font-family: var(--mono); }
 .meter i { display: block; height: 100%; background: var(--verde); }
 
 .empty { color: var(--ink-soft); font-size: 0.95rem; }
+
+/* ---- help requests ------------------------------------------------------ */
+.status-open { color: var(--ambar); }
+.status-answered { color: var(--verde); }
 
 /* ---- login ------------------------------------------------------------- */
 .login-wrap { max-width: 24rem; margin: 5rem auto; padding: 0 1.25rem; }

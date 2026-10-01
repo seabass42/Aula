@@ -19,7 +19,9 @@
     <nav>
         <a th:href="@{/}">Progress</a>
         <a th:href="@{/practice}">Practice</a>
+        <a th:href="@{/help}" sec:authorize="hasRole('STUDENT')">Help</a>
         <a th:href="@{/tutor/problems}" sec:authorize="hasRole('TUTOR')">Problems</a>
+        <a th:href="@{/tutor/help}" sec:authorize="hasRole('TUTOR')">Help requests</a>
         <form th:action="@{/logout}" method="post" style="display:inline">
             <button type="submit" class="linkbtn">Sign out</button>
         </form>

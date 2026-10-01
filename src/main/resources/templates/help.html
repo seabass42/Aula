@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Help')}"></head>
+<body>
+<div class="shell">
+    <header th:replace="~{fragments :: masthead}"></header>
+
+    <p class="eyebrow">Stuck on something?</p>
+    <h1>Ask your tutor</h1>
+
+    <form th:action="@{/help}" method="post" class="card">
+        <label for="message">Your question</label>
+        <textarea id="message" name="message" rows="4" required
+                  placeholder="Ask about a specific problem, a grammar rule, anything."></textarea>
+        <div class="actions" style="margin-top:0.75rem">
+            <button type="submit" class="btn">Send to tutor</button>
+        </div>
+    </form>
+
+    <p class="eyebrow" style="margin-top:2.5rem">Your questions</p>
+
+    <p th:if="${requests.isEmpty()}" class="empty">
+        Nothing yet. Ask something above if you get stuck.
+    </p>
+
+    <div th:each="r : ${requests}" class="card">
+        <p class="eyebrow">
+            <span th:unless="${r.isAnswered()}" class="status-open">Waiting on your tutor</span>
+            <span th:if="${r.isAnswered()}" class="status-answered">Answered</span>
+        </p>
+        <p th:text="${r.message}">Question</p>
+        <div th:if="${r.isAnswered()}" class="verdict is-correct" style="margin-top:1rem">
+            <h2>Your tutor replied</h2>
+            <p th:text="${r.reply}">Reply</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
